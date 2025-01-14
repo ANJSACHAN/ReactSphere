@@ -1,0 +1,14 @@
+{
+  "name": "reactsphere",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Anjali Sachan",
+  "license": "ISC",
+  "description": "A simulation of React's core principles, including the Virtual DOM, component lifecycle, and reconciliation process. Explore how React works under the hood through this educational and interactive project.",
+  "devDependencies": {
+    "typescript": "^5.7.3"
+  }
+}
