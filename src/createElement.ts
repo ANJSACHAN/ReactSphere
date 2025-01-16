@@ -1,23 +1,25 @@
-export function createHTMLElement(
+function createHTMLElement(
   type: string,
   props: Record<string, any> | null,
   ...children: any[]
 ) {
   return {
-    type: type,
+    type,
     props: {
       ...props,
-      children: children,
+      children,
     },
   };
 }
 
-export function createTextElement(text: string) {
+function createTextElement(text: string) {
   return {
-    type: "Text Element",
+    type: "textNode",
     props: {
       nodeValue: text,
-      children: [] as any[],
+      children: [],
     },
   };
 }
+
+export { createHTMLElement, createTextElement };
