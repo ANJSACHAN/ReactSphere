@@ -17,3 +17,4 @@ const container = document.createElement("div");
 ReactSphere.render(a, container);
 
 document.body.appendChild(container);
+ // "start": "tsx src/index.ts"

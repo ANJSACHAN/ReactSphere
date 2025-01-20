@@ -4,16 +4,21 @@
   "main": "index.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start" : "tsx src/index.ts"
+    "build": "tsc && babel src --out-dir dist --extensions '.ts,.tsx'"
   },
-  "type": "module",
   "author": "Anjali Sachan",
+  "type": "module",
   "license": "ISC",
-  "description": "A simulation of React's core principles, including the Virtual DOM, component lifecycle, and reconciliation process. Explore how React works under the hood through this educational and interactive project.",
+  "description": "A simulation of React's core principles, including the Virtual DOM, component lifecycle, and reconciliation process.",
   "devDependencies": {
+    "@babel/cli": "^7.26.4",
+    "@babel/plugin-transform-runtime": "^7.25.9",
+    "@babel/preset-typescript": "^7.26.0",
     "typescript": "^5.7.3"
   },
   "dependencies": {
+    "@babel/core": "^7.26.0",
+    "@babel/preset-env": "^7.26.0",
     "ts-node": "^10.9.2",
     "tsx": "^4.19.2"
   }
