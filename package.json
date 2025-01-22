@@ -2,24 +2,22 @@
   "name": "reactsphere",
   "version": "1.0.0",
   "main": "index.ts",
+  "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "tsc && babel src --out-dir dist --extensions '.ts,.tsx'"
+    "clean": "rm -rf dist",
+    "build": "npm run clean && tsc && babel src --out-dir dist --extensions '.ts,.tsx'",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Anjali Sachan",
-  "type": "module",
   "license": "ISC",
   "description": "A simulation of React's core principles, including the Virtual DOM, component lifecycle, and reconciliation process.",
   "devDependencies": {
     "@babel/cli": "^7.26.4",
-    "@babel/plugin-transform-runtime": "^7.25.9",
-    "@babel/preset-typescript": "^7.26.0",
-    "typescript": "^5.7.3"
-  },
-  "dependencies": {
     "@babel/core": "^7.26.0",
     "@babel/preset-env": "^7.26.0",
-    "ts-node": "^10.9.2",
-    "tsx": "^4.19.2"
+    "@babel/preset-typescript": "^7.26.0",
+    "@babel/plugin-transform-runtime": "^7.25.9",
+    "babel-plugin-add-import-extension": "^1.6.0",
+    "typescript": "^5.7.3"
   }
 }
