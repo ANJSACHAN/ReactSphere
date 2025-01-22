@@ -10,8 +10,9 @@
     "lib": ["DOM", "ESNext"],
     "sourceMap": true,
     "jsx": "react-jsx",
-    "declaration": true,
-  "emitDeclarationOnly": true,
+    "declaration": false,
+    "noEmit": true,
+  "emitDeclarationOnly": false,
   "isolatedModules": true,
   "allowImportingTsExtensions": true
 
