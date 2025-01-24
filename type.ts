@@ -14,7 +14,9 @@ export interface Fiber {
   child: Fiber | null;
   sibling: Fiber | null;
   props: {
-    children: Element[]; 
+    children: Element[];
     [key: string]: any;
   };
+  status: "INSERT" | "UPDATE" | "DELETE" | null;
+  alternate: Fiber | null;
 }

@@ -16,4 +16,4 @@ const  a = ReactSphere.createHTMLElement(
 const container = document.createElement("div");
 ReactSphere.render(a, container);
 
-document.body.appendChild(container);
+
