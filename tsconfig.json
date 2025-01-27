@@ -9,7 +9,8 @@
     "skipLibCheck": true,
     "lib": ["DOM", "ESNext"],
     "sourceMap": true,
-    "jsx": "react-jsx",
+    "jsxFactory": "ReactSphere.createElement",  // Point to your custom createElement function
+    "jsx": "react" , // or "react-jsx" depending on your setup
     "declaration": false,
     "noEmit": true,
   "emitDeclarationOnly": false,

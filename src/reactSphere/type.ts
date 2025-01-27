@@ -9,7 +9,7 @@ export interface Element {
 
 export interface Fiber {
   dom: HTMLElement | Text | null;
-  type: string;
+  type: string | Function;
   parent: Fiber | null;
   child: Fiber | null;
   sibling: Fiber | null;
@@ -20,3 +20,7 @@ export interface Fiber {
   status: "INSERT" | "UPDATE" | "DELETE" | null;
   alternate: Fiber | null;
 }
+
+export const deletions: Fiber[] = [];
+
+

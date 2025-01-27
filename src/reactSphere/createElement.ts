@@ -1,3 +1,5 @@
+// TypeScript version of createNewElement and createTextElement
+
 function createHTMLElement(
   type: string,
   props: Record<string, any> | null,
@@ -7,14 +9,16 @@ function createHTMLElement(
     type,
     props: {
       ...props,
-      children,
+      children: children.map((child) =>
+        typeof child === "object" ? child : createTextElement(child)
+      ),
     },
   };
 }
 
 function createTextElement(text: string) {
   return {
-    type: "textNode",
+    type: "TEXT",
     props: {
       nodeValue: text,
       children: [],

@@ -1,4 +1,6 @@
-import { Element, Fiber } from "../type";
+import { Element, Fiber } from "./type";
+import { commitWork } from "./commit";
+import { createDom } from "./createDom";
 
 let nextUnitOfWork: Fiber | null = null;
 let progress_Root: Fiber | null = null;
@@ -48,104 +50,40 @@ function commitRoot(): void {
   progress_Root = null;
 }
 
-function commitWork(fiber: Fiber | null): void {
-  if (!fiber) return;
 
-  const parentDom = findParentDom(fiber);
 
-  if (fiber.status === "INSERT" && fiber.dom) {
-    parentDom?.appendChild(fiber.dom);
-  } else if (fiber.status === "DELETE" && fiber.dom) {
-    parentDom?.removeChild(fiber.dom);
-  } else if (fiber.status === "UPDATE" && fiber.dom) {
-    updateDom(fiber.dom, fiber.alternate?.props || {}, fiber.props);
-  }
 
-  commitWork(fiber.child);
-  commitWork(fiber.sibling);
-}
-
-function findParentDom(fiber: Fiber): HTMLElement | null {
-  let parent = fiber.parent;
-  while (parent && !parent.dom) {
-    parent = parent.parent;
-  }
-  return parent?.dom as HTMLElement | null;
-}
-
-function updateDom(dom: HTMLElement | Text, prevProps: any, nextProps: any): void {
-  const isProperty = (key: string) => key !== "children" && key !== "nodeValue";
-
-  // Remove old properties
-  Object.keys(prevProps)
-    .filter(isProperty)
-    .forEach((name) => {
-      if (!(name in nextProps)) {
-        if (name in dom) {
-          (dom as any)[name] = "";
-        } else {
-          (dom as HTMLElement).removeAttribute(name);
-        }
-      }
-    });
-
-  // Add new properties
-  Object.keys(nextProps)
-    .filter(isProperty)
-    .forEach((name) => {
-      if (prevProps[name] !== nextProps[name]) {
-        if (name in dom) {
-          (dom as any)[name] = nextProps[name];
-        } else {
-          (dom as HTMLElement).setAttribute(name, nextProps[name]);
-        }
-      }
-    });
-}
-
-function createDom(fiber: Fiber): HTMLElement | Text {
-  const dom =
-    fiber.type === "textNode"
-      ? document.createTextNode(fiber.props.nodeValue || "")
-      : document.createElement(fiber.type as string);
-
-  const isProperty = (key: string) => key !== "children" && key !== "nodeValue";
-
-  Object.keys(fiber.props)
-    .filter(isProperty)
-    .forEach((name) => {
-      if (name in dom) {
-        (dom as any)[name] = fiber.props[name];
-      } else {
-        (dom as HTMLElement).setAttribute(name, fiber.props[name]);
-      }
-    });
-
-  return dom;
-}
 
 function performUnitOfWork(fiber: Fiber): Fiber | null {
-  if (!fiber.dom) {
-    fiber.dom = createDom(fiber);
+  const isFunctionComponent = fiber.type instanceof Function;
+
+  if (isFunctionComponent) {
+    updateFunctionComponent(fiber);
+  } else {
+    updateHostComponent(fiber);
   }
 
-  const elements = fiber.props.children || [];
-  reconcileChildren(fiber, elements);
-
+  // Return the child fiber if it exists
   if (fiber.child) {
     return fiber.child;
   }
 
+  // Declare nextFiber outside the loop for proper scoping
   let nextFiber: Fiber | null = fiber;
+
   while (nextFiber) {
+    // Return the sibling fiber if it exists
     if (nextFiber.sibling) {
       return nextFiber.sibling;
     }
+    // Traverse up to the parent
     nextFiber = nextFiber.parent;
   }
 
+  // Return null if no next fiber is found
   return null;
 }
+
 
 function reconcileChildren(fiber: Fiber, elements: Element[]): void {
   let oldFiber = fiber.alternate?.child || null;
@@ -198,4 +136,26 @@ function reconcileChildren(fiber: Fiber, elements: Element[]): void {
     }
     prevSibling = newFiber;
   }
+}
+function updateFunctionComponent(fiber: Fiber): void {
+  // Ensure the fiber.type is a function and invoke it with props
+  if (typeof fiber.type === "function") {
+    const children = [fiber.type(fiber.props)];
+    reconcileChildren(fiber, children);
+  } else {
+    throw new Error("Fiber type must be a function for a function component.");
+  }
+}
+
+function updateHostComponent(fiber: Fiber): void {
+  // Create a DOM node if it doesn't exist
+  if (!fiber.dom) {
+    fiber.dom = createDom(fiber);
+  }
+
+  // Ensure fiber.props.children is an array and pass to reconcileChildren
+  const children = Array.isArray(fiber.props.children)
+    ? fiber.props.children
+    : [fiber.props.children];
+  reconcileChildren(fiber, children);
 }
