@@ -1,10 +1,11 @@
-
 /** @jsx ReactSphere.createElement */
-
 import { ReactSphere } from "../reactSphere";
 
-const App = () => {
-  return <div>Hello, World!</div>;
-};
-
-export  {App};
+export function App() {
+  return (
+    <div>
+      <h1>Hello ReactSphere!</h1>
+      <p>Welcome to my custom React-like implementation</p>
+    </div>
+  );
+}

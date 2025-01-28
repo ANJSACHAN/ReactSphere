@@ -2,22 +2,22 @@
   "compilerOptions": {
     "target": "ESNext",
     "module": "ESNext",
- "moduleResolution": "node",
+    "moduleResolution": "node",
     "outDir": "./dist",
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
     "lib": ["DOM", "ESNext"],
     "sourceMap": true,
-    "jsxFactory": "ReactSphere.createElement",  // Point to your custom createElement function
-    "jsx": "react" , // or "react-jsx" depending on your setup
-    "declaration": false,
+    "jsxFactory": "ReactSphere.createElement",
+    "jsx": "react",
+    "declaration": true,
     "noEmit": true,
-  "emitDeclarationOnly": false,
-  "isolatedModules": true,
-  "allowImportingTsExtensions": true
-
+    "emitDeclarationOnly": false,
+    "isolatedModules": false,
+    "allowImportingTsExtensions": true,
+    "resolveJsonModule": true
   },
-  "include": ["src/**/*", "type.ts" ],
+  "include": ["src/**/*", "type.ts"],
   "exclude": ["node_modules"]
 }

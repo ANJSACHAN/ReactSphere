@@ -1,14 +1,20 @@
 /** @jsx ReactSphere.createElement */
 import { ReactSphere } from "./reactSphere";
 import { App } from "./components/App";
+import { Element } from "./reactSphere/type"; // Keep this import
 
-const element = <App />; // This should now correctly use ReactSphere.createElement
+// Convert JSX.Element to ReactSphere.Element
+const element: Element = {
+  type: App,
+  props: {
+    children: [], // App doesn't have children here
+  },
+};
+
 const container = document.getElementById("root");
 
-
-console.log(element)
-// if (container) {
-//   ReactSphere.render(element, container);  // Pass the JSX element to your custom render function
-// } else {
-//   console.error("Container not found!");
-// }
+if (container) {
+  ReactSphere.render(element, container);
+} else {
+  console.error("Container not found!");
+}

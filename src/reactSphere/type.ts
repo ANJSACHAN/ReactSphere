@@ -1,5 +1,5 @@
 export interface Element {
-  type: string;
+  type: string | Function;
   props: {
     [key: string]: any;
     children: Element[]; 
