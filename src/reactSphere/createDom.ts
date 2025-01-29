@@ -1,10 +1,11 @@
 import { Fiber } from "./type";
 
 export function createDom(fiber: Fiber): HTMLElement | Text {
-  const dom =
-    fiber.type === "textNode"
-      ? document.createTextNode(fiber.props.nodeValue || "")
-      : document.createElement(fiber.type as string);
+  console.log('Creating DOM for fiber:', fiber); // Debug log
+  
+  const dom = fiber.type === "TEXT"  // Changed from "textNode" to match createElement
+    ? document.createTextNode(fiber.props.nodeValue || "")
+    : document.createElement(fiber.type as string);
 
   const isProperty = (key: string) => key !== "children" && key !== "nodeValue";
 
@@ -18,5 +19,6 @@ export function createDom(fiber: Fiber): HTMLElement | Text {
       }
     });
 
+  console.log('Created DOM element:', dom); // Debug log
   return dom;
 }

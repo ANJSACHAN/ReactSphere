@@ -8,16 +8,20 @@
     "esModuleInterop": true,
     "skipLibCheck": true,
     "lib": ["DOM", "ESNext"],
-    "sourceMap": true,
-    "jsxFactory": "ReactSphere.createElement",
+    "sourceMap": false,  // Removed source maps
     "jsx": "react",
-    "declaration": true,
-    "noEmit": true,
-    "emitDeclarationOnly": false,
-    "isolatedModules": false,
-    "allowImportingTsExtensions": true,
-    "resolveJsonModule": true
+    "jsxFactory": "ReactSphere.createElement",
+    "jsxFragmentFactory": "ReactSphere.Fragment",
+    "declaration": false,  // Disabled declaration files
+    "noEmit": true,       // TypeScript won't emit files
+    "isolatedModules": true,
+    "allowImportingTsExtensions": false,
+    "rootDir": "./src",
+    "baseUrl": "./src"
   },
-  "include": ["src/**/*", "type.ts"],
-  "exclude": ["node_modules"]
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.tsx"
+  ],
+  "exclude": ["node_modules", "dist"]
 }

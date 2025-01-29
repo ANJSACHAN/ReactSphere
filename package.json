@@ -3,11 +3,15 @@
   "version": "1.0.0",
   "main": "index.ts",
   "type": "module",
-  "scripts": {
-    "clean": "rimraf dist",
-    "build": "npm run clean && tsc && babel src --out-dir dist --extensions '.ts,.tsx'",
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
+ 
+
+    "scripts": {
+      "clean": "rimraf dist",
+      "build": "npm run clean && babel src --out-dir dist --extensions '.ts,.tsx'",
+      "start": "npm run build && serve ."
+    },
+
+
   "author": "Anjali Sachan",
   "license": "ISC",
   "description": "A simulation of React's core principles, including the Virtual DOM, component lifecycle, and reconciliation process.",
@@ -22,6 +26,8 @@
     "typescript": "^5.7.3"
   },
   "dependencies": {
-    "@babel/plugin-transform-react-jsx": "^7.25.9"
+    "@babel/plugin-transform-react-jsx": "^7.25.9",
+    "@babel/runtime": "^7.26.7",
+    "serve": "^14.2.4"
   }
 }

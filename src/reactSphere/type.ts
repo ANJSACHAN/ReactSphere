@@ -23,4 +23,11 @@ export interface Fiber {
 
 export const deletions: Fiber[] = [];
 
+// Add some helper functions for debugging
+export const isElement = (obj: any): obj is Element => {
+  return obj && 'type' in obj && 'props' in obj && 'children' in obj.props;
+};
 
+export const isFiber = (obj: any): obj is Fiber => {
+  return obj && 'dom' in obj && 'type' in obj && 'props' in obj && 'status' in obj;
+};

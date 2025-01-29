@@ -1,20 +1,17 @@
 /** @jsx ReactSphere.createElement */
-import { ReactSphere } from "./reactSphere";
+import { ReactSphere } from "./reactSphere/index";
 import { App } from "./components/App";
-import { Element } from "./reactSphere/type"; // Keep this import
 
-// Convert JSX.Element to ReactSphere.Element
-const element: Element = {
-  type: App,
-  props: {
-    children: [], // App doesn't have children here
-  },
-};
+
+
+console.log('ReactSphere initializing...'); // Debug log
 
 const container = document.getElementById("root");
+console.log('Found container:', container); // Debug log
 
 if (container) {
-  ReactSphere.render(element, container);
+  console.log('Rendering App component...'); // Debug log
+  ReactSphere.render(<App />, container);
 } else {
-  console.error("Container not found!");
+  console.error("Container element #root not found!");
 }

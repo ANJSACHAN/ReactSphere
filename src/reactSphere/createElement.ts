@@ -1,10 +1,12 @@
-// TypeScript version of createNewElement and createTextElement
+import { Element } from './type';
 
 function createHTMLElement(
-  type: string,
+  type: string | Function,
   props: Record<string, any> | null,
   ...children: any[]
-) {
+): Element {
+  console.log('Creating element:', { type, props, children }); // Debug log
+  
   return {
     type,
     props: {
@@ -16,7 +18,9 @@ function createHTMLElement(
   };
 }
 
-function createTextElement(text: string) {
+function createTextElement(text: string): Element {
+  console.log('Creating text element:', text); // Debug log
+  
   return {
     type: "TEXT",
     props: {
@@ -26,4 +30,6 @@ function createTextElement(text: string) {
   };
 }
 
-export { createHTMLElement, createTextElement };
+// Export as the JSX factory
+export const createElement = createHTMLElement;
+export { createTextElement };
